@@ -28,16 +28,37 @@
               </td>
 
 
-              <td >
-                <div class="menu" routerLink="/help" title="Posting">
+              <td *ngIf="userdata">
+                <div class="menu" routerLink="/register" title="Posting" >
                   <span class="fa-stack fa-lg">
                     <i class="fa fa-circle fa-stack-2x"></i>
-                    <i class="fa fa-user-o fa-stack-1x fa-inverse"></i>
+                    <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
                   </span>
-                  <em>help</em>
+                  <em>message</em>
                 </div>
               </td>
 
+
+              <td *ngIf="userdata">
+                <div class="menu" routerLink="" title="Posting" >
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+                  </span>
+                  <em>Profile</em>
+                </div>
+              </td>
+
+
+              <td>
+              <div class="menu" routerLink="" title="Posting" (click)="onClickLogout()" *ngIf="userdata">
+                <span class="fa-stack fa-lg">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-sign-out fa-stack-1x fa-inverse"></i>
+                </span>
+                <em>Logout</em>
+              </div>
+            </td>
 
 
 

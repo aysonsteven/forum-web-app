@@ -5,14 +5,15 @@ import { HttpModule } from '@angular/http';
 
 import { RegistrationPage } from '../pages/authentication/registration/registration.component';
 import { LoginPage } from '../pages/authentication/login/login.component';
+import { ForumHomePage } from '../pages/forumpages/forumhome/forumhome';
 
 const appRoutes: Routes = [
 
   { path: '', component: LoginPage },
   { path: 'register', component: RegistrationPage },
-  { path: 'login', component: LoginPage }
+  { path: 'login', component: LoginPage },
+  { path: 'home', component: ForumHomePage}
 
-  // { path: 'register', component: RegistrationPage}
 ];
 
 @NgModule({

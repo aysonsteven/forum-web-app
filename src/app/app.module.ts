@@ -7,15 +7,18 @@ import { ForumModule } from '../apps/forum/app/forum.module';
 import { AppComponent } from './app.component';
 
 import { HelpPage } from '../pages/help/help';
+import { HomePage } from '../pages/home/home'
 
 const appRoutes: Routes = [
-  { path: 'help', component: HelpPage}
+  { path: 'help', component: HelpPage},
+  { path: '' , component: HomePage}
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    HelpPage
+    HelpPage,
+    HomePage
 ],
   imports: [
     BrowserModule,

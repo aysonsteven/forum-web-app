@@ -6,7 +6,7 @@ export class Server {
   self: Server = null;
   http: Http;
   debug: boolean = false;
-    server = "http://work.org/server/index.php";
+    server = "http://work.org/forum-backend/index.php";
   constructor( http ) {
     this.http = http;
   }

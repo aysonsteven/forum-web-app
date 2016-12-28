@@ -1,20 +1,93 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Server, MEMBER_LOGIN } from './server';
-
+// import { FileUploader } from 'ng2-file-upload/components/file-upload/file-uploader.class';
+import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
 
 const SESSION_ID = 'session-id';
 @Injectable()
 
 export class UserService extends Server{
-    
+    private uploader;
+    private result
     constructor( public http: Http){
         super( http );
+        this.uploader = new FileUploader({ url: 'http://work.org/forum-backend/?mc=user.upload' });
     }
 
     buildQuery( params : any ) {
         return this.http_build_query( params );
     }
+  upload( files ) {
+    console.log("PostEditService::upload()");
+    try {
+        this.uploader.addToQueue( files );
+        console.log('test ' + JSON.stringify(files))
+    }
+    catch ( e ) {
+        alert( "Failed to addToQueue() onBrowserUpload()" );
+    }
+  }
+
+
+    initBrowserUpload() {
+        //console.log("initBrowserUpload()");
+
+      this.uploader.onSuccessItem = (item, response, status, headers) => {
+        this.result = {
+          "success": true,
+          "item": item,
+          "response": response,
+          "status": status,
+          "headers": headers
+        };
+        //console.log( 'onSuccessItem : ', this.result );
+      };
+      this.uploader.onErrorItem = (item, response, status, headers) => {
+        this.result = {
+          "success": false,
+          "item": item,
+          "response": response,
+          "status": status,
+          "headers": headers
+        };
+        //console.log( 'onErrorItem : ', this.result );
+      };
+      this.uploader.onCompleteAll = () => {
+          this.onBrowserUploadComplete();
+      };
+      this.uploader.onAfterAddingFile = ( fileItem ) => {
+        //console.log('onAfterAddingFile: ', fileItem);
+        fileItem.withCredentials = false; // remove credentials
+        fileItem.upload(); // upload file.
+    }
+  }
+
+
+   private onBrowserUploadComplete() {
+    let response = this.result.response;
+    console.log(response);
+    if ( response ) {
+
+      // try {
+      //   re = JSON.parse( response );
+      // }
+      // catch ( e ) {
+      //   return this.x.error( "Failed on JSON.parse() try in onBrowserUploadComplete(). Please show this message to admin.", e);
+      // }
+
+    //   let re = this.x.json( response );
+    //   if ( re.success ) this.events.publish( 'file-upload-success', re.data );
+    //   else return alert( re.data );
+    }
+    else return this.errorMaybeServerError();
+  }
+
+
+  errorMaybeServerError() {
+    return alert("Please check if file server is alive and check if the photo size is too big.");
+  }
+
 
     query( data : any, successCallback : any, errorCallback  : any ) {
         let body = this.buildQuery( data );

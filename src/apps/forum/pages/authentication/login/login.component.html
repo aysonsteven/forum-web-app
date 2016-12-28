@@ -6,8 +6,8 @@
         <!--<div errorwrap *ngIf="formStatus.error">{{ formStatus.error }}</div> -->
     </div>
      <div class="form-group row">
-      <label for="id" class="col-xs-3 col-sm-1 col-form-label">UserID</label>
-      <div class="col-xs-9 col-sm-3">
+      <label for="id" class="col-xs-3 col-form-label">UserID</label>
+      <div class="col-xs-9 ">
         <input class="form-control" [(ngModel)]="loginForm.id" type="text" id="id" name="id" (ngModelChange)='onFocusUserID()'>
       </div>
     </div>
@@ -15,8 +15,8 @@
         <!--<div errorwrap *ngIf="formStatus.userID">{{ formStatus.userID }}</div>-->
     </div>
      <div class="form-group row">
-      <label for="password" class="col-xs-3 col-sm-1 col-form-label">Password</label>
-      <div class="col-xs-9 col-sm-3">
+      <label for="password" class="col-xs-3 col-form-label">Password</label>
+      <div class="col-xs-9 ">
         <input class="form-control" [(ngModel)]="loginForm.password" type="password" id="password" name="password">
       </div>
     </div>
@@ -30,4 +30,9 @@
       </div>
     </div>
   </form>
+
+
+
 </div>
+<input type="file" name="inputFile" [(ngModel)]="inputFileValue" #file (change)="onChangeFile($event)">
+

@@ -5,7 +5,10 @@ import { Router } from '@angular/router';
 interface form{
     id:string,
     password:string,
-    email:string
+    email:string,
+    gender: string,
+    age: number,
+    birthdate: string
 }
 @Component( {
     selector: 'registration-page',
@@ -19,7 +22,7 @@ export class RegistrationPage {
         if( this.validate() == false) return;
         this.userService.user_register( this.registration_form, res=>{
             console.log('successfull registered ' + res );
-            this.router.navigate([''])
+            this.router.navigate(['/home'])
         }, err=> alert('error ' + err ))
     }
 
