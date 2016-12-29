@@ -23,6 +23,7 @@ export interface PAGE_DATA {
     limit?: number;
     expire?: number;
 };
+const SESSION_ID = 'session-id';
 @Injectable()
 
 export class PostService extends Server {
@@ -30,6 +31,15 @@ export class PostService extends Server {
     constructor( http: Http ) {
         super( http );
     }
+
+
+    logged( yesCallback: ( session_id: string ) => void, noCallback?: () => void ) {
+        let session_id = localStorage.getItem( SESSION_ID );
+        if ( session_id ) yesCallback( session_id );
+        else noCallback? noCallback() : console.log("no callback is undefined");
+    }
+
+
 
     hasError( data: POST_DATA ) : boolean | string {
 
@@ -45,16 +55,17 @@ export class PostService extends Server {
     create( data: POST_DATA, successCallback: ( re ) => void, errorCallback: ( error: string ) => void, completeCallback?: () => void ) {
         data['mc'] = 'question.write';
         let login = this.getLoginData();
+     
         if ( login ) {
             data.id = login.id;
             data.session_id = login.session_id;
+            console.log('data ' + login.id)
         }
-        console.log('login ' + JSON.stringify(login) )
-        if ( this.hasError( data ) ) return errorCallback( this.getError( data ) );
+        // console.log('login ' + JSON.stringify(login) )
+        // if ( this.hasError( data ) ) return errorCallback( this.getError( data ) );
         this.post( data,
             successCallback,
-            errorCallback,
-            completeCallback );
+            errorCallback );
     }
 
 
@@ -67,8 +78,7 @@ export class PostService extends Server {
         if ( this.hasError( data ) ) return errorCallback( this.getError( data ) );
         this.post( data,
             successCallback,
-            errorCallback,
-            completeCallback );
+            errorCallback );
     }
 
  
@@ -92,7 +102,7 @@ export class PostService extends Server {
                     let re = JSON.parse( data['_body'] );
                     if ( re['code'] ) return errorCallback( re['message'] );
                     //console.log('query::sucess: ', data);
-                    successCallback( re['data'] );
+                    successCallback( data['_body'] );
                 }
                 catch( e ) {
                     //console.log(data);
@@ -115,8 +125,7 @@ export class PostService extends Server {
  
         this.post( data,
             successCallback,
-            errorCallback,
-            completeCallback );
+            errorCallback);
     }
 
 

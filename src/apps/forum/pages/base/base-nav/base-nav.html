@@ -29,7 +29,17 @@
 
 
               <td *ngIf="userdata">
-                <div class="menu" routerLink="/register" title="Posting" >
+                <div class="menu" routerLink="/home" title="Posting" >
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+                  </span>
+                  <em>home</em>
+                </div>
+              </td>
+
+              <td *ngIf="userdata">
+                <div class="menu" routerLink="/message" title="Posting" >
                   <span class="fa-stack fa-lg">
                     <i class="fa fa-circle fa-stack-2x"></i>
                     <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>

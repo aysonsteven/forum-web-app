@@ -58,21 +58,31 @@ export class Server {
    * @example code @see member.login()
    *
    */
-  post( data: any, successCallback: (data:any) => void, errorCallback?: ( e:any ) => void, completeCallback?: () => void ) {
-    // if ( data['action'] === void 0 ) return errorCallback("Ajax request 'action' value is empty");
-    data = this.buildQuery( data );
-    if ( this.debug ) {
-      let url = this.serverUrl + '?' + data;
-      console.info("post: ", url);
-    }
-    this.http.post( this.serverUrl, data, this.requestOptions )
-      .timeout( 25000, new Error('timeout exceeded') )
-      .subscribe(
-        re => this.responseData( re, successCallback, errorCallback ),
-        er => this.responseConnectionError( er, errorCallback ),
-        completeCallback );
+  post( data : any, successCallback , errorCallback: (error:string) => void ){
+    this.query( data, successCallback=>{
+      console.log( successCallback )
+    },errorCallback=>{
+      console.log( errorCallback )
+    })
   }
 
+  query( data : any, successCallback : any, errorCallback  : any ) {
+    let body = this.buildQuery( data );
+    console.log("debug url: ", this.server  + '?' + body );
+    this.http.post( this.server, body, this.requestOptions )
+      .subscribe( data => {
+          try {
+              let re = JSON.parse( data['_body'] );
+              if ( re['code'] ) return errorCallback( re['message'] );
+              //console.log('query::sucess: ', data);
+              successCallback( re['data'] );
+          }
+          catch( e ) {
+              //console.log(data);
+              errorCallback(data['_body']);
+          }
+      });
+  }
   /**
    *
    * Returns JSON parsed Object.

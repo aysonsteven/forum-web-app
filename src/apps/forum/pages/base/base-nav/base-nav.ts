@@ -13,7 +13,9 @@ export class BaseNav {
     }
 
     onClickLogout(){
-        this.userService.logout();
+        this.userService.logout( res=>{
+            console.log('loggedout')
+        })
     }
 
     getlogindata(){

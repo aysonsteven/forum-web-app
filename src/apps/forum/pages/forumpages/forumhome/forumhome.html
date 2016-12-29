@@ -1,5 +1,34 @@
 <base-nav></base-nav>
 <div class="container-fluid">
     <br>
-    Home
+    <h4>Home</h4>
+
+
+<post-component>
+    
+</post-component>
+
+
+
+  <div class="container-fluid">
+
+
+    <div >
+      <div class="card"  *ngFor="let post of posts; let i = index">
+        <div class="card-block">
+          <h4 class="card-title">{{ post.post }}</h4>
+            <div  *ngIf="post.more">
+
+            </div>
+
+            
+              <button type="button" class="btn btn-secondary btn-sm" (click)=" post.more = ! post.more " >{{ post.more  ? 'Less' : 'More' }}</button> 
+              <button class="btn btn-success btn-sm" (click)="onClickEdit( exam, i )">EDIT</button>
+              <button class="btn btn-danger btn-sm" (click)="onClickDelete( exam.idx, i )">DELETE</button>  
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 </div>

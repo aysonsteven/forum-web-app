@@ -12,14 +12,19 @@ import { PostService } from '../services/post.service';
 import { LoginPage } from '../pages/authentication/login/login.component';
 import { RegistrationPage } from '../pages/authentication/registration/registration.component';
 import { ForumHomePage } from '../pages/forumpages/forumhome/forumhome';
-
+import { ForumMessagePage } from '../pages/forumpages/forummessage/forummessage';
+import { PostComponent } from '../components/postform/postform';
+import { MessageComponent } from '../components/messageform/messageform';
 
 
 @NgModule({
   declarations: [
     LoginPage,
     RegistrationPage,
-    ForumHomePage
+    ForumHomePage,
+    ForumMessagePage,
+    PostComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +34,7 @@ import { ForumHomePage } from '../pages/forumpages/forumhome/forumhome';
     ForumRoutingModule
   ],
 
-  providers: [ UserService, PostService ]
+  providers: [ UserService, PostService ],
 })
 export class ForumModule {}
 
