@@ -23,7 +23,7 @@ export interface PAGE_DATA {
     limit?: number;
     expire?: number;
 };
-const SESSION_ID = 'session-id';
+const XBASE_SESSION_ID = 'xbase-session-id';
 @Injectable()
 
 export class PostService extends Server {
@@ -34,7 +34,7 @@ export class PostService extends Server {
 
 
     logged( yesCallback: ( session_id: string ) => void, noCallback?: () => void ) {
-        let session_id = localStorage.getItem( SESSION_ID );
+        let session_id = localStorage.getItem( XBASE_SESSION_ID );
         if ( session_id ) yesCallback( session_id );
         else noCallback? noCallback() : console.log("no callback is undefined");
     }
@@ -52,17 +52,18 @@ export class PostService extends Server {
         return <string> this.hasError( data );
     }
 
-    create( data: POST_DATA, successCallback: ( re ) => void, errorCallback: ( error: string ) => void, completeCallback?: () => void ) {
-        data['mc'] = 'question.write';
+    create( data, successCallback: ( re ) => void, errorCallback: ( error: string ) => void, completeCallback?: () => void ) {
+        data['mc'] = 'post.write';
         let login = this.getLoginData();
-     
+     console.log('id 1 ' + login )
         if ( login ) {
             data.id = login.id;
             data.session_id = login.session_id;
-            console.log('data ' + login.id)
+            console.log('data ' + login)
         }
-        // console.log('login ' + JSON.stringify(login) )
+        console.log('login ' + JSON.stringify(login) )
         // if ( this.hasError( data ) ) return errorCallback( this.getError( data ) );
+        console.log('data s' + data)
         this.post( data,
             successCallback,
             errorCallback );
@@ -75,7 +76,7 @@ export class PostService extends Server {
         if ( ! login ) return errorCallback('login first');
         data.id = login.id;
         data.session_id = login.session_id;
-        if ( this.hasError( data ) ) return errorCallback( this.getError( data ) );
+        // if ( this.hasError( data ) ) return errorCallback( this.getError( data ) );
         this.post( data,
             successCallback,
             errorCallback );
@@ -114,7 +115,7 @@ export class PostService extends Server {
     delete( idx, successCallback: ( re: any ) => void, errorCallback: ( error: string ) => void, completeCallback?: () => void ) {
         let data = {};
         data['idx'] = idx;
-        data['mc'] = 'question.delete';
+        data['mc'] = 'post.delete';
         
         let login = this.getLoginData();
         if ( login ) {
@@ -122,8 +123,8 @@ export class PostService extends Server {
             data['session_id'] = login.session_id;
             console.log('session '  + data['session_id'])
         }
- 
-        this.post( data,
+        
+        this.query( data,
             successCallback,
             errorCallback);
     }

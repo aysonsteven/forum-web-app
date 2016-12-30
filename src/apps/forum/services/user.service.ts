@@ -2,8 +2,15 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { Http, Headers, RequestOptions } from '@angular/http';
 
+interface session{
+    session_id
+}
+interface MEMBER_LOGIN_DATA {
+    id: string;    
+    session_id: string;   
+};
 const XBASE_SESSION_ID = 'xbase-session-id';
-
+export const MEMBER_LOGIN = 'philgo-login';
 /*
   Generated class for the UserService provider.
 
@@ -27,20 +34,43 @@ export class UserService {
           return options;
   }
 
-  buildQuery( params : any ) {
-      return this.http_build_query( params );
+
+  getLoginData() : MEMBER_LOGIN_DATA {
+    let data = localStorage.getItem( MEMBER_LOGIN );
+    if ( ! data ) return null;
+    try {
+      let login = JSON.parse( data );
+      return login;
+    }
+    catch ( e ) {
+      return null;
+    }
   }
 
-  login( data : any, successCallback: (session_id:string) => void, errorCallback: (error:string) => void ) {
+  buildQuery( params : any ) {
+      return this.http_build_query( params );
+
+  }
+
+
+
+  login( data : any, successCallback: (session_id) => void, errorCallback: (error:string) => void ) {
       data['mc'] = 'user.login';
       this.query( data, (session_id : any )=> {
-          localStorage.setItem( XBASE_SESSION_ID , session_id );
-          successCallback( 'logged in( session_id ): '+ session_id );
+          localStorage.setItem( XBASE_SESSION_ID , JSON.stringify(session_id) );
+          successCallback( 'logged in( session_id ): '+ JSON.stringify(session_id) );
+          console.log('test session ' + JSON.stringify(session_id))
       }, errorCallback );
   }
+    setLoginData( data ) : void {
+        let login = { id: data.id, session_id: data.session_id };
+        let str = JSON.stringify( data );
+        localStorage.setItem( MEMBER_LOGIN, str );
+    }
 
 
   logged( yesCallback: ( session_id: string ) => void, noCallback?: () => void ) {
+      
     let session_id = localStorage.getItem( XBASE_SESSION_ID );
     if ( session_id ) yesCallback( session_id );
     else noCallback? noCallback() : console.log("no callback is undefined");
@@ -123,9 +153,9 @@ export class UserService {
     user_register( data : any, successCallback: (session_id:string) => void, errorCallback: (error:string) => void ) {
         data['mc'] = 'user.register';
         this.query( data, (session_id : any)  => {
-            localStorage.setItem( XBASE_SESSION_ID, session_id );
+            localStorage.setItem( XBASE_SESSION_ID, JSON.stringify(session_id) );
           console.log('session Id',  localStorage.getItem( XBASE_SESSION_ID ));
-            successCallback( session_id );
+            successCallback( JSON.stringify(session_id) );
         }, errorCallback );
     }
 

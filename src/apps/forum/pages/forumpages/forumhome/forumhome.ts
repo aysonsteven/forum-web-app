@@ -11,10 +11,17 @@ import * as _ from 'lodash';
 
 
 export class ForumHomePage {
+
     showForm:boolean = false;
     opt = {};
     posts = [];
-    constructor( private postService: PostService ){
+    constructor( private postService: PostService, private userService: UserService ){
+        console.info('user logged ')
+        let samp;
+        this.userService.logged( res =>{
+            samp = res
+        })
+        console.log('login data '+ JSON.parse(samp).id)
         this.getPostList();
     }
     onClickShowPostForm(){
@@ -38,6 +45,23 @@ export class ForumHomePage {
         this.posts = JSON.parse(e).data;
         console.log('posts ' + this.posts)
     })
+  }
+
+
+  onClickDelete( idx, index){
+      let data = [];
+      data['idx'] = idx;
+      data['mc'] = 'post.delete'
+      console.log('idx ' + idx)
+    let confirmDelete = confirm('are you sure you want to delete');
+    if( confirmDelete == false ) return;
+    this.postService.query( data  , response =>{
+        this.posts.splice(index, 1)
+    }, err =>console.info('Something went wrong ' + err ) )
+  }
+
+  editComponentOnSuccess(){
+      console.log('succes')
   }
 
 }

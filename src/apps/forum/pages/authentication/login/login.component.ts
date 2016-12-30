@@ -27,6 +27,7 @@ export class LoginPage {
     private result: FileUploadResponse
     loginForm: form = <form>{}
     constructor( public userService: UserService, private router: Router){
+        console.log('user ' + JSON.stringify(this.userService.getLoginData()))
         this.userService.logged( res => this.logindata = res )
         if( this.logindata ){
             this.router.navigate(['/home'])
@@ -37,12 +38,11 @@ export class LoginPage {
     onClickLogin(){
         this.userService.login( this.loginForm, res =>{
             console.log('response ' + res );
-            this.router.navigate(['/home'])
+            this.router.navigate(['/home']);
         }, err => console.error( 'error : ' + err ) )
     }
 
     onClickReset(){
-
     }
     onFocusUserID(){}
 

@@ -1,17 +1,3 @@
-<base-nav></base-nav>
-<div class="container-fluid">
-    <br>
-    <h4>Home</h4>
-
-
-<post-component
-  [posts]   = " posts "
-  (cancel)  = " editComponentOnCancel() "
-  (success) = " editComponentOnSuccess() "
-></post-component>
-
-
-
   <div class="container-fluid">
     <div >
       <div class="card"  *ngFor="let post of posts; let i = index">
@@ -28,6 +14,3 @@
       </div>
     </div>
   </div>
-
-
-</div>

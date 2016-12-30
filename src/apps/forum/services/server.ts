@@ -1,7 +1,7 @@
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/timeout';
 
-export const MEMBER_LOGIN = 'login';
+export const MEMBER_LOGIN = 'philgo-login';
 export class Server {
   self: Server = null;
   http: Http;
