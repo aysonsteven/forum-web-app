@@ -55,6 +55,7 @@ export class PostComponent {
   }
 
   onClickSubmit(){
+      if( this.validate() == false) return alert('no post');
       let data ={
           'mc': 'post.write',
           'post': this.postForm.post,
@@ -65,6 +66,11 @@ export class PostComponent {
           this.successCallback(JSON.parse(response))
           
       }, err =>alert('Something went wrong ' + err ) )
+  }
+
+  validate(){
+      if( this.postForm.post == null || this.postForm.post == '')return false;
+      return true;
   }
 
 

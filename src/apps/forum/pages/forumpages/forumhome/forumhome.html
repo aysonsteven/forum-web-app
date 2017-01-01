@@ -2,7 +2,8 @@
 <div class="container-fluid">
     <br>
     <h4>Home</h4>
-
+<img src="{{ userData.photo }}" alt="profile picture">
+{{userData.id}}
 
 <post-component
   [posts]   = " posts "
@@ -22,8 +23,8 @@
             </div>            
             
               <button type="button" class="btn btn-secondary btn-sm" (click)=" post.more = ! post.more " >{{ post.more  ? 'Less' : 'More' }}</button> 
-              <button class="btn btn-success btn-sm" (click)="onClickEdit( post, i )">EDIT</button>
-              <button class="btn btn-danger btn-sm" (click)="onClickDelete( post.idx, i )">DELETE</button>  
+              <button class="btn btn-success btn-sm" (click)="onClickEdit( post, i )" *ngIf="userData.id == post.user_id">EDIT</button>
+              <button class="btn btn-danger btn-sm" (click)="onClickDelete( post, i )" *ngIf="userData.id == post.user_id">DELETE</button>  
         </div>
       </div>
     </div>

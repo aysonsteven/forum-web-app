@@ -11,17 +11,17 @@ import * as _ from 'lodash';
 
 
 export class ForumHomePage {
-
+    userData;
     showForm:boolean = false;
     opt = {};
-    posts = [];
+    posts;
     constructor( private postService: PostService, private userService: UserService ){
         console.info('user logged ')
-        let samp;
+        
         this.userService.logged( res =>{
-            samp = res
+            this.userData = JSON.parse(res);
         })
-        console.log('login data '+ JSON.parse(samp).id)
+        console.log('login data '+  this.userData )
         this.getPostList();
     }
     onClickShowPostForm(){
@@ -48,11 +48,12 @@ export class ForumHomePage {
   }
 
 
-  onClickDelete( idx, index){
+  onClickDelete( post, index){
+      if( this.userData.id != post.user_id) alert('not your post');
       let data = [];
-      data['idx'] = idx;
+      data['idx'] = post.idx;
       data['mc'] = 'post.delete'
-      console.log('idx ' + idx)
+      console.log('idx ' + post.idx)
     let confirmDelete = confirm('are you sure you want to delete');
     if( confirmDelete == false ) return;
     this.postService.query( data  , response =>{
