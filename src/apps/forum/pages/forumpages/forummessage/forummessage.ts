@@ -8,5 +8,8 @@ import { Router } from '@angular/router';
     templateUrl: 'forummessage.html'
 })
 export class ForumMessagePage {
-
+    showMessageForm;
+    onEmitCancel(){
+        this.showMessageForm = false;
+    }
 }

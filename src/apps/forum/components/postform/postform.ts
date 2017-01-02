@@ -62,7 +62,7 @@ export class PostComponent {
           'user_id' : this.userdata.id
       }
       this.postService.query( data, response =>{
-          console.log('post ' + JSON.parse(response));
+          console.log('post ' + JSON.stringify(response));
           this.successCallback(JSON.parse(response))
           
       }, err =>alert('Something went wrong ' + err ) )

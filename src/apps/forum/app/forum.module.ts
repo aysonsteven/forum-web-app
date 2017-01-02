@@ -15,6 +15,8 @@ import { ForumHomePage } from '../pages/forumpages/forumhome/forumhome';
 import { ForumMessagePage } from '../pages/forumpages/forummessage/forummessage';
 import { PostComponent } from '../components/postform/postform';
 import { MessageComponent } from '../components/messageform/messageform';
+import { PostViewComponent } from '../components/view-component/view-component';
+import { EditFormComponent } from '../components/edit-component/form-component';
 
 
 @NgModule({
@@ -24,7 +26,9 @@ import { MessageComponent } from '../components/messageform/messageform';
     ForumHomePage,
     ForumMessagePage,
     PostComponent,
-    MessageComponent
+    MessageComponent,
+    PostViewComponent,
+    EditFormComponent
   ],
   imports: [
     BrowserModule,

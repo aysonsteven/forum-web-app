@@ -1,9 +1,6 @@
 <section class="container-fluid">
 <div>
 
-    <h5 class="modal-title container">
-      Add
-    </h5>
 
 
     <div class="modal-body">
@@ -11,17 +8,17 @@
       <form>
 
         <div class="form-group row">
-          <label for="question" class="col-xs-3 col-form-label" >Question</label>
+          <label for="recipient" class="col-xs-3 col-form-label" >Recipient</label>
           <div class="col-xs-9">
-            <input class="form-control form-control-sm"   type="text" id="question" name="question">
+            <input class="form-control form-control-sm"   type="text" id="recipient" name="recipient">
           </div>
         </div>
 
 
         <div class="form-group row">
-          <label for="choice1" class="col-xs-3 col-form-label">Choice1</label>
+          <label for="subject" class="col-xs-3 col-form-label">Subject</label>
           <div class="col-xs-9">
-            <input class="form-control form-control-sm"   type="text" id="choice1" name="choice1">
+            <input class="form-control form-control-sm"   type="text" id="subject" name="subject">
           </div>
         </div>
 
@@ -29,33 +26,15 @@
 
 
         <div class="form-group row">
-          <label for="choice2" class="col-xs-3 col-form-label">Choice2</label>
+          <label for="message" class="col-xs-3 col-form-label">Message</label>
           <div class="col-xs-9">
-            <input class="form-control form-control-sm"   type="text" id="choice2" name="choice2">
+            <textarea  class="form-control form-control-sm"   type="text" id="message" name="message" rows="4"></textarea>
           </div>
         </div>
 
-
-
-        <div class="form-group row">
-          <label for="choice3" class="col-xs-3 col-form-label">Choice3</label>
-          <div class="col-xs-9">
-            <input class="form-control form-control-sm"   type="text" id="choice3" name="choice3">
-          </div>
-        </div>
-
-
-        <div class="form-group row">
-          <label for="choice4" class="col-xs-3 col-form-label">Choice4</label>
-          <div class="col-xs-9">
-            <input class="form-control form-control-sm"   type="text" id="choice4" name="choice4" >
-          </div>
-        </div>
-
-      
       </form>
     <div class="modal-footer">
-      <button type="button"class="btn btn-secondary btn-sm" (click)="onClickSubmit()">Save</button>
+      <button type="button"class="btn btn-secondary btn-sm" (click)="onClickSubmit()">Send</button>
       <button type="button" class="btn btn-secondary btn-sm" (click)="onClickCancel()">Cancel</button>  
     </div>
 

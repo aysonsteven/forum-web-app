@@ -7,6 +7,7 @@
 
 <post-component
   [posts]   = " posts "
+  
   (cancel)  = " editComponentOnCancel() "
   (success) = " editComponentOnSuccess() "
 ></post-component>
@@ -16,17 +17,14 @@
   <div class="container-fluid">
     <div >
       <div class="card"  *ngFor="let post of posts; let i = index">
-        <div class="card-block">{{ post.user_id }}  date: {{ post.created }}
-          <h4 class="card-title">{{ post.post }}</h4>
-            <div  *ngIf="post.more">
-
-            </div>            
-            
-              <button type="button" class="btn btn-secondary btn-sm" (click)=" post.more = ! post.more " >{{ post.more  ? 'Less' : 'More' }}</button> 
-              <button class="btn btn-success btn-sm" (click)="onClickEdit( post, i )" *ngIf="userData.id == post.user_id">EDIT</button>
-              <button class="btn btn-danger btn-sm" (click)="onClickDelete( post, i )" *ngIf="userData.id == post.user_id">DELETE</button>  
-        </div>
+        <view-component 
+        [post]="post" 
+        [mode]='_post'
+        (delete)='onClickDelete()'
+        (comment)='onClickAddComment()'
+        ></view-component>
       </div>
+
     </div>
   </div>
 

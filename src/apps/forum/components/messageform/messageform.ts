@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
 
@@ -15,11 +15,14 @@ interface form{
     templateUrl: 'messageform.html'
 })
 export class MessageComponent {
+    @Output() cancel = new EventEmitter();
 
     constructor(){
 
     }
-    
+    onClickCancel(){
+        this.cancel.emit()
+    }
 
 
 }

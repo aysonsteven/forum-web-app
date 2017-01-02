@@ -16,26 +16,27 @@ interface form{
     id:string,
     password:string
 }
-
+interface status{
+    error:string,
+    userID:string,
+    userPassword:string
+}
 @Component( {
     selector: 'login-page',
     templateUrl: 'login.component.html'
 })
 export class LoginPage {
-
+    formStatus:status = <status>{}
     logindata
     private result: FileUploadResponse
     loginForm: form = <form>{}
     constructor( public userService: UserService, private router: Router){
-        console.log('user ' + JSON.stringify(this.userService.getLoginData()))
-        this.userService.logged( res => this.logindata = res )
-        if( this.logindata ){
-            this.router.navigate(['/home'])
-        }
+        this.checklogin()
     }
     
     
     onClickLogin(){
+        if( this.validate () == false ) return;
         this.userService.login( this.loginForm, res =>{
             console.log('response ' + res );
             this.router.navigate(['/home']);
@@ -44,7 +45,22 @@ export class LoginPage {
 
     onClickReset(){
     }
-    onFocusUserID(){}
+    onFocusUserID(){
 
-
+    }
+    
+    checklogin(){
+        this.userService.logged( res => this.logindata = res )
+        if( this.logindata ){
+            alert("oops you're already logged in")
+            this.router.navigate(['/home'])
+            console.log('logindata ' + this.logindata)
+        }
+    }
+    validate(){
+        if( this.loginForm.id == null || this.loginForm.id == ''){
+            this.formStatus.userID = 'Please enter your id';
+            return false;
+        }
+    }
 }
