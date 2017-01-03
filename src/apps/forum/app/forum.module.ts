@@ -5,6 +5,9 @@ import { HttpModule } from '@angular/http';
 import { BaseModule } from '../pages/base/base.module';
 import { ForumRoutingModule } from '../app/forum-routes.module'
 
+import { FileSelectDirective,
+        FileDropDirective } from 'ng2-file-upload';
+
 
 import { UserService } from '../services/user.service';
 import { PostService } from '../services/post.service';
@@ -28,7 +31,9 @@ import { EditFormComponent } from '../components/edit-component/form-component';
     PostComponent,
     MessageComponent,
     PostViewComponent,
-    EditFormComponent
+    EditFormComponent,
+    FileSelectDirective,
+    FileDropDirective
   ],
   imports: [
     BrowserModule,

@@ -14,8 +14,52 @@
     </div>
     
     
-
-    <message-component *ngIf="showMessageForm"
+<section  *ngIf="showMessageForm">
+    <messageform-component
     (cancel)='onEmitCancel()'
-    ></message-component>
+    (send)='onEmitSend()'
+    ></messageform-component>
+</section>
+          <ng-container *ngFor = "let message of messages">
+            <div class="message" *ngIf = " message.idx ">
+              
+              <div class="title" (click)="onClickShowContent(message)">
+               
+                <div class="from">
+                   <i *ngIf="message.stamp_open != '0'" class="fa fa-envelope-open-o" aria-hidden="true"></i> 
+                   <i *ngIf="message.stamp_open == '0' " class="fa fa-envelope" aria-hidden="true"></i> 
+                    {{ message.sender_id }}
+                </div>
+                <div class="subject" [attr.open]=" message.stamp_open ">
+                    <span *ngIf="message.subject != 'undefined'" >{{ message.subject }}</span>
+                </div>
+                <div class="date">{{ message.created }}</div>
+                <div  style="clear:right;"></div>
+              </div>
+
+              <div class="content" *ngIf="message['show_content']">
+                <div *ngIf="message.content != 'undefined'"  class="message_content" [innerHTML]="message.message"></div>
+                <div *ngIf="message.content == 'undefined'" class="message_content"></div>
+                
+                
+
+                <div class="menu" >
+                  <button class="hide menu-item" (click)="onClickHideContent(message)" >HIDE</button>
+                  <button class="reply menu-item" (click)="onClickReply(message)">REPLY</button>
+                  <button class="delete menu-item"  (click)="onClickDelete( message )">DELETE</button>
+                </div>
+                
+              
+              </div>
+              <div *ngIf=" message['show_content'] && message.showReplyForm && !showCreateForm" class="create-form">
+                  <label>Reply</label>
+                  <textarea name="content" [(ngModel)]="form.content" placeholder="Content"></textarea>
+                  <button class="btn btn-success btn-sm" (click)="onClickReplyFormSubmit(message)">Submit</button> 
+                  <button class="btn btn-primary btn-sm" (click)="message.showReplyForm = false">Close</button>      
+               </div>
+            
+
+
+            </div>
+          </ng-container>
 </section>

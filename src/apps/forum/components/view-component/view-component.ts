@@ -10,6 +10,7 @@ interface form{
   post  : string;
 
 }
+
 interface data{
     id:string,
     session_id
@@ -19,6 +20,7 @@ interface data{
     templateUrl: 'view-component.html'
 })
 export class PostViewComponent {
+    commenttoedit;
     postIDX;
     comments
     showForm:boolean = false;
@@ -44,7 +46,7 @@ export class PostViewComponent {
 
 
     onSuccessComment(){
-
+        
     }
 
     ngOnInit() { 
@@ -98,18 +100,9 @@ export class PostViewComponent {
     // }
 
     onClickDelete() {
-        
         let confirmdelete = confirm('Are you sure you want to delete?')
         if( confirmdelete == false ) return;
-        this.post['inDeleting'] = true;
-        this.postService.delete( this.post.idx, re => {
-            console.log('delete: re: ', re);
-            this.delete.emit()
-           
-            },
-            error => alert("delete error: " + error ),
-            () => this.post['inDeleting'] = false
-        );
+            this.delete.emit()   
     }
 
     onCliclDeleteComment( comment, index){
@@ -127,6 +120,15 @@ export class PostViewComponent {
 
     onClickAddComment(){
         this.showForm = true;
+    }
+
+    onClickEditComment(comment, index){
+        console.log('user_id ' + comment.user_id)
+        this.showForm = true;
+        this.commenttoedit = comment;
+        this.comments.splice(index, 1)
+
+        
     }
     
 

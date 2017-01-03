@@ -1,4 +1,5 @@
 <section>
+  <div class="card">
         <div class="card-block">{{ post.user_id }}  date: {{ post.created }}
           <h4 class="card-title">{{ post.post }}</h4>
             <div  *ngIf="post.more">
@@ -13,17 +14,20 @@
                 <form-component *ngIf="showForm"
                 [posts] = 'comments'
                 [parentIDX]=post.idx
+                [current] = 'commenttoedit'
                 (success)='onSuccessComment()'
                 ></form-component>
 
+                
+
+</div>
 
 
-
-      <div class="jumbotron jumbotron-fluid"  *ngFor="let comment of comments; let i = index">
-        <div class="container-fluid">
+      <div class="breadcrumb"  *ngFor="let comment of comments; let i = index">
+        <div class="container-fluid" *ngIf="comment">
           <h4 class="display-5">{{ comment.user_id }}  date: {{ post.created }}</h4>
           <p class="lead">{{ comment.comment }}</p>
-              <button class="btn btn-success btn-sm" (click)="onClickEdit( comment, i )" *ngIf="userData.id == comment.user_id">EDIT</button>
+              <button class="btn btn-success btn-sm" (click)="onClickEditComment( comment, i )" *ngIf="userData.id == comment.user_id">EDIT</button>
               <button class="btn btn-danger btn-sm" (click)="onCliclDeleteComment( comment, i )" *ngIf="userData.id == comment.user_id">DELETE</button>  
         </div>
 

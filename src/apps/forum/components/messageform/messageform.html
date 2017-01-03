@@ -1,16 +1,16 @@
 <section class="container-fluid">
-<div>
 
 
 
-    <div class="modal-body">
+
+    <section class="modal-body">
 
       <form>
 
         <div class="form-group row">
           <label for="recipient" class="col-xs-3 col-form-label" >Recipient</label>
           <div class="col-xs-9">
-            <input class="form-control form-control-sm"   type="text" id="recipient" name="recipient">
+            <input class="form-control form-control-sm" [(ngModel)]="messgeForm.recipient_id"  type="text" id="recipient" name="recipient">
           </div>
         </div>
 
@@ -18,7 +18,7 @@
         <div class="form-group row">
           <label for="subject" class="col-xs-3 col-form-label">Subject</label>
           <div class="col-xs-9">
-            <input class="form-control form-control-sm"   type="text" id="subject" name="subject">
+            <input class="form-control form-control-sm" [(ngModel)]="messgeForm.subject"  type="text" id="subject" name="subject">
           </div>
         </div>
 
@@ -28,17 +28,16 @@
         <div class="form-group row">
           <label for="message" class="col-xs-3 col-form-label">Message</label>
           <div class="col-xs-9">
-            <textarea  class="form-control form-control-sm"   type="text" id="message" name="message" rows="4"></textarea>
+            <textarea  class="form-control form-control-sm" [(ngModel)]="messgeForm.message"  type="text" id="message" name="message" rows="4"></textarea>
           </div>
         </div>
 
       </form>
-    <div class="modal-footer">
-      <button type="button"class="btn btn-secondary btn-sm" (click)="onClickSubmit()">Send</button>
+
+      <button type="button"class="btn btn-secondary btn-sm" (click)="onClickSend()">Send</button>
       <button type="button" class="btn btn-secondary btn-sm" (click)="onClickCancel()">Cancel</button>  
-    </div>
 
-    </div>
 
-</div>
+    </section>
+
 </section>

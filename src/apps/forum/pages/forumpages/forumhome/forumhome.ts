@@ -85,16 +85,17 @@ onClickAddComment(){
 
 
   onClickDelete( post, index){
-    //   if( this.userData.id != post.user_id) alert('not your post');
-    //   let data = [];
-    //   data['idx'] = post.idx;
-    //   data['mc'] = 'post.delete'
-    //   console.log('idx ' + post.idx)
+      if( this.userData.id != post.user_id) alert('not your post');
+      let data = [];
+      data['idx'] = post.idx;
+      data['mc'] = 'post.delete'
+      console.log('idx ' + post.idx)
     // let confirmDelete = confirm('are you sure you want to delete');
     // if( confirmDelete == false ) return;
-    // this.postService.query( data  , response =>{
-        this.posts.splice(index, 1)
-    // }, err =>console.info('Something went wrong ' + err ) )
+    this.postService.query( data  , response =>{
+        this.posts.splice( index, 1 )
+    }, err =>console.info('Something went wrong ' + err ) )
+
   }
 
   editComponentOnSuccess(){

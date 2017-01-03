@@ -18,7 +18,7 @@ export const MEMBER_LOGIN = 'philgo-login';
   for more info on providers and Angular 2 DI.
 */
 @Injectable()
-export class UserService {
+export class UserService  {
 
   session_id = 'xbase-session-id';
 
@@ -80,6 +80,22 @@ export class UserService {
       localStorage.removeItem( XBASE_SESSION_ID );
       successCallback('logged out successfully');
     }else noCallback();
+  }
+  edit( data: any, successCallback:any, errorCallback : any){
+        data['mc'] = 'user.update';
+        // if ( this.hasError( data ) ) return errorCallback( this.getError( data ) );
+        this.post( data,
+            successCallback,
+            errorCallback );
+  }
+
+
+  post( data : any, successCallback , errorCallback: (error:string) => void ){
+    this.query( data, successCallback=>{
+      console.log( successCallback )
+    },errorCallback=>{
+      console.log( errorCallback )
+    })
   }
 
   query( data : any, successCallback : any, errorCallback  : any ) {

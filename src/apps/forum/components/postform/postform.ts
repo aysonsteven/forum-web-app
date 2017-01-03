@@ -42,7 +42,7 @@ export class PostComponent {
             if ( ! this.post_idx ) {
                 console.log("posts1: ", this.posts);
                 console.log("re:2 ", re);
-                this.posts.unshift( re.data );
+                this.posts.push( re.data );
             }else{
               console.log('index', this.post_index )
               this.posts.splice( this.post_index, 1, re.post )
@@ -69,7 +69,9 @@ export class PostComponent {
   }
 
   validate(){
-      if( this.postForm.post == null || this.postForm.post == '')return false;
+      if( this.postForm.post == null || this.postForm.post == ''){
+          return false;
+      }
       return true;
   }
 
